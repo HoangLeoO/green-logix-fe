@@ -17,9 +17,15 @@ import CustomerLayout from './components/CustomerLayout';
 import Shop from './pages/customer/Shop';
 import History from './pages/customer/History';
 
+// Global Components
+import GlobalConfirmModal from './components/GlobalConfirmModal';
+import { Toaster } from 'sonner';
+
 function App() {
   return (
     <Router>
+      <Toaster position="top-right" richColors theme="dark" />
+      <GlobalConfirmModal />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Login />} />

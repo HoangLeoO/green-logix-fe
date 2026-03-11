@@ -11,6 +11,7 @@ import {
     X,
     UserPlus
 } from 'lucide-react';
+import { toast } from 'sonner';
 
 // MOCK DATA
 const initialCustomers = [
@@ -282,7 +283,7 @@ export default function Customers() {
                         </div>
                         <div className="px-6 py-4 border-t border-slate-800 bg-slate-900/50 flex justify-end gap-3">
                             <button onClick={() => setIsAddOpen(false)} className="px-5 py-2.5 text-slate-400 hover:text-white font-medium text-sm transition-colors">Hủy</button>
-                            <button onClick={() => { setIsAddOpen(false); alert('Đã lưu khách hàng thành công!'); }} className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl transition-colors shadow-lg shadow-emerald-600/20 font-medium text-sm flex items-center gap-2">Lưu thông tin</button>
+                            <button onClick={() => { setIsAddOpen(false); toast.success('Đã lưu khách hàng thành công!'); }} className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl transition-colors shadow-lg shadow-emerald-600/20 font-medium text-sm flex items-center gap-2">Lưu thông tin</button>
                         </div>
                     </div>
                 </div>

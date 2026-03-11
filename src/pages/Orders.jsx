@@ -10,6 +10,7 @@ import {
     User,
     PackageCheck
 } from 'lucide-react';
+import { toast } from 'sonner';
 
 // --- MOCK DATA ---
 const initialOrders = [
@@ -59,7 +60,7 @@ export default function Orders() {
 
     const handleExportExcel = () => {
         // Giả lập chức năng xuất Excel
-        alert("🟢 Đang xuất danh sách đơn hàng ra file Excel (GreenLogix_Orders.xlsx)...");
+        toast.info("Đang xuất danh sách đơn hàng ra file Excel (GreenLogix_Orders.xlsx)...");
     };
 
     // Logic lọc dữ liệu

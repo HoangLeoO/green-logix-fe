@@ -10,6 +10,7 @@ import {
     Smartphone,
     Copy
 } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function Settings() {
     const [activeTab, setActiveTab] = useState('profile');
@@ -19,12 +20,12 @@ export default function Settings() {
     const [zaloFooter, setZaloFooter] = useState('Trân trọng cảm ơn. Vui lòng thanh toán vào STK: 123456789 - VCB - Tên Chủ TK');
 
     const handleSave = () => {
-        alert('Đã lưu cấu hình thành công!');
+        toast.success('Đã lưu cấu hình thành công!');
     };
 
     const copyVariable = (variable) => {
         navigator.clipboard.writeText(variable);
-        alert(`Đã copy biến ${variable} vào khay nhớ tạm`);
+        toast.success(`Đã copy biến ${variable} vào khay nhớ tạm`);
     };
 
     return (
@@ -48,8 +49,8 @@ export default function Settings() {
                             <button
                                 onClick={() => setActiveTab('profile')}
                                 className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all font-medium text-sm whitespace-nowrap ${activeTab === 'profile'
-                                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm'
-                                        : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm'
+                                    : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
                                     }`}
                             >
                                 <User className="w-5 h-5 flex-shrink-0" />
@@ -59,8 +60,8 @@ export default function Settings() {
                             <button
                                 onClick={() => setActiveTab('zalo')}
                                 className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all font-medium text-sm whitespace-nowrap ${activeTab === 'zalo'
-                                        ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm'
-                                        : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                                    ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm'
+                                    : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
                                     }`}
                             >
                                 <MessageSquare className="w-5 h-5 flex-shrink-0" />
@@ -70,8 +71,8 @@ export default function Settings() {
                             <button
                                 onClick={() => setActiveTab('notifications')}
                                 className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all font-medium text-sm whitespace-nowrap ${activeTab === 'notifications'
-                                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm'
-                                        : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm'
+                                    : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
                                     }`}
                             >
                                 <Bell className="w-5 h-5 flex-shrink-0" />

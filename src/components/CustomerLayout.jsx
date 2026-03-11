@@ -1,12 +1,23 @@
 import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { ShoppingBag, FileText, LogOut, Leaf } from 'lucide-react';
+import { useConfirmStore } from '../store/useConfirmStore';
 
 export default function CustomerLayout() {
     const navigate = useNavigate();
+    const { showConfirm } = useConfirmStore();
 
     const handleLogout = () => {
-        navigate('/login');
+        showConfirm({
+            title: 'Trở về trang chủ',
+            message: 'Bạn có muốn thoát khỏi phiên đăng nhập này không?',
+            confirmText: 'Đăng xuất',
+            cancelText: 'Huỷ',
+            type: 'warning',
+            onConfirm: () => {
+                navigate('/login');
+            }
+        });
     };
 
     const navItems = [

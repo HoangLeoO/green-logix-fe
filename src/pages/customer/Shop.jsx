@@ -9,6 +9,7 @@ import {
     CheckCircle2,
     Trash2
 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const favoriteProducts = [
     { id: '101', name: 'Cải ngọt', price: 15000, unit: 'kg', image: '🥬' },
@@ -73,7 +74,7 @@ export default function Shop() {
 
     const handleCheckout = () => {
         if (cart.length === 0) return;
-        alert('Đơn hàng của bạn đã được gửi thành công đến nhà cung cấp!');
+        toast.success('Đơn hàng của bạn đã được gửi thành công đến nhà cung cấp!');
         setCart([]);
         setShowCart(false);
     };

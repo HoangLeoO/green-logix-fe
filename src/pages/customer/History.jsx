@@ -9,6 +9,7 @@ import {
     Info,
     Clock
 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const mockPurchaseHistory = [
     { id: 'ORD-105', date: '25/10/2023', items: 'Cải ngọt, Cà chua, +3...', amount: 840000, status: 'debt' },
@@ -150,7 +151,7 @@ export default function History() {
 
                         <div className="flex gap-3 justify-end">
                             <button onClick={() => setShowReportModal(false)} className="px-5 py-2.5 rounded-xl font-medium text-slate-400 hover:text-white transition-colors">Hủy</button>
-                            <button onClick={() => { setShowReportModal(false); alert('Đã gửi phản hồi. Chúng tôi sẽ liên hệ lại qua mục Tin nhắn Zalo sắp tới.'); }} className="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-2.5 rounded-xl font-bold transition-colors shadow-lg shadow-amber-500/20">Gửi Phản Hồi</button>
+                            <button onClick={() => { setShowReportModal(false); toast.success('Đã gửi phản hồi. Chúng tôi sẽ liên hệ lại qua mục Tin nhắn Zalo sắp tới.'); }} className="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-2.5 rounded-xl font-bold transition-colors shadow-lg shadow-amber-500/20">Gửi Phản Hồi</button>
                         </div>
                     </div>
                 </div>

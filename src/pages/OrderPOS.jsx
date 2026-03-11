@@ -10,6 +10,8 @@ import {
     Zap,
     Leaf
 } from 'lucide-react';
+import { useConfirmStore } from '../store/useConfirmStore';
+import { toast } from 'sonner';
 
 // --- MOCK DATA ---
 const mockCustomers = [
@@ -37,6 +39,7 @@ const mockProducts = [
 ];
 
 export default function OrderPOS() {
+    const { showConfirm } = useConfirmStore();
     const [searchCustomer, setSearchCustomer] = useState('');
     const [selectedCustomer, setSelectedCustomer] = useState(null);
 
@@ -111,17 +114,27 @@ export default function OrderPOS() {
 
     const handleCheckout = () => {
         if (!selectedCustomer) {
-            alert("Vui lòng chọn khách hàng trước khi chốt đơn!");
+            toast.warning("Vui lòng chọn khách hàng trước khi chốt đơn!");
             return;
         }
         if (cart.length === 0) {
-            alert("Giỏ hàng đang trống!");
+            toast.warning("Giỏ hàng đang trống!");
             return;
         }
-        // Giả lập lưu đơn
-        alert(`✅ Đã chốt đơn thành công cho khách hàng: ${selectedCustomer.name}\n💰 Tổng tiền: ${formatCurrency(totalAmount)}`);
-        setCart([]);
-        setSelectedCustomer(null);
+
+        showConfirm({
+            title: 'Chốt sổ đơn hàng',
+            message: `Xác nhận lưu đơn cho KH: ${selectedCustomer.name} với tổng cộng ${formatCurrency(totalAmount)}?`,
+            confirmText: 'Chốt Đơn',
+            cancelText: 'Kiểm tra lại',
+            type: 'success',
+            onConfirm: () => {
+                // Giả lập lưu đơn
+                toast.success(`Đã chốt đơn thành công cho khách hàng: ${selectedCustomer.name}`);
+                setCart([]);
+                setSelectedCustomer(null);
+            }
+        });
     };
 
     return (
@@ -243,8 +256,8 @@ export default function OrderPOS() {
                                     key={cat.id}
                                     onClick={() => setSelectedCategory(cat.id)}
                                     className={`px-4 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors ${selectedCategory === cat.id
-                                            ? 'bg-emerald-500 text-white shadow-sm'
-                                            : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                                        ? 'bg-emerald-500 text-white shadow-sm'
+                                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                                         }`}
                                 >
                                     {cat.name}

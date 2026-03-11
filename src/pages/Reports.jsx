@@ -7,6 +7,7 @@ import {
     CalendarDays, Download, FileText, TrendingUp, CreditCard, ShoppingBag,
     ExternalLink, FileSpreadsheet, Activity
 } from 'lucide-react';
+import { toast } from 'sonner';
 
 // --- MOCK DATA ---
 const revenueData = [
@@ -48,7 +49,7 @@ export default function Reports() {
         // Giả lập delay sinh file
         setTimeout(() => {
             setIsExporting(false);
-            alert(`Đã xuất báo cáo định dạng [${type}] thành công! File đã được lưu. (Mock UI)`);
+            toast.success(`Đã xuất báo cáo định dạng [${type}] thành công! File đã được lưu. (Mock UI)`);
         }, 2000);
     };
 
