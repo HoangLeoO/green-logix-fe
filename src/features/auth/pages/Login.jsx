@@ -5,6 +5,10 @@ import * as z from 'zod';
 import { Leaf, Mail, Lock, Eye, EyeOff, Loader2, LogIn } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+import { authApi } from '../../../api/services/auth';
+import { useAuthStore } from '../../../store/useAuthStore';
+import { toast } from 'sonner';
+
 // Zod schema để validate form đăng nhập
 const loginSchema = z.object({
     identifier: z.string().min(1, { message: 'Vui lòng nhập Tên đăng nhập hoặc Số điện thoại' }),
@@ -14,7 +18,9 @@ const loginSchema = z.object({
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [apiError, setApiError] = useState(''); // Thêm state lưu lỗi từ API
     const navigate = useNavigate();
+    const setAuth = useAuthStore((state) => state.setAuth);
 
     const {
         register,
@@ -30,15 +36,41 @@ export default function Login() {
 
     const onSubmit = async (data) => {
         setIsLoading(true);
-        // TODO: Thực hiện gọi API đăng nhập JWT ở đây
-        console.log('Dữ liệu đăng nhập:', data);
+        setApiError(''); // Xóa lỗi cũ khi bắt đầu submit
+        try {
+            const response = await authApi.login(data);
 
-        // Giả lập API call
-        setTimeout(() => {
+            // response từ Spring Boot: { token, id, username, displayName, roles }
+            const { token, ...user } = response;
+
+            // Lưu vào Zustand và LocalStorage
+            setAuth(user, token);
+
+            toast.success('Đăng nhập thành công!');
+
+            // Chuyển hướng theo role hoặc mặc định sang dashboard
+            if (user.roles?.includes('ADMIN')) {
+                navigate('/dashboard');
+            } else {
+                navigate('/dashboard'); // Hoặc sang /portal nếu là khách hàng
+            }
+        } catch (error) {
+            console.error('Lỗi đăng nhập:', error);
+
+            // Dịch lỗi sang tiếng Việt
+            let message = 'Tên đăng nhập hoặc mật khẩu không chính xác';
+
+            if (error.code === 'ERR_NETWORK') {
+                message = 'Không thể kết nối tới máy chủ. Vui lòng kiểm tra lại mạng.';
+            } else if (error.response?.status === 403) {
+                message = 'Tài khoản của bạn không có quyền truy cập.';
+            }
+
+            setApiError(message); // Hiển thị trên form
+            toast.error(message); // Hiển thị toast
+        } finally {
             setIsLoading(false);
-            // Chuyển hướng sang trang Dashboard
-            navigate('/dashboard');
-        }, 1500);
+        }
     };
 
     return (
@@ -63,6 +95,15 @@ export default function Login() {
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
                 <div className="bg-slate-900/80 backdrop-blur-xl py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10 border border-slate-800">
+
+                    {/* Hiển thị lỗi API lên Form */}
+                    {apiError && (
+                        <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse"></div>
+                            <span className="text-sm font-medium text-red-400">{apiError}</span>
+                        </div>
+                    )}
+
                     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
 
                         {/* Field: Identifier (Username / Phone) */}

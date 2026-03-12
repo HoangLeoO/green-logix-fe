@@ -1,11 +1,14 @@
 import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, ShoppingCart, Users, Settings, LogOut, Leaf, Store, Package, LineChart } from 'lucide-react';
-import { useConfirmStore } from '../store/useConfirmStore';
+import { useConfirmStore } from '../../store/useConfirmStore';
+import { useAuthStore } from '../../store/useAuthStore';
+import { toast } from 'sonner';
 
 export default function Layout() {
     const navigate = useNavigate();
     const { showConfirm } = useConfirmStore();
+    const logout = useAuthStore((state) => state.logout);
 
     const handleLogout = () => {
         showConfirm({
@@ -15,6 +18,8 @@ export default function Layout() {
             cancelText: 'Hủy',
             type: 'warning',
             onConfirm: () => {
+                logout();
+                toast.success('Đã đăng xuất thành công');
                 navigate('/login');
             }
         });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { ShoppingBag, FileText, LogOut, Leaf } from 'lucide-react';
-import { useConfirmStore } from '../store/useConfirmStore';
+import { useConfirmStore } from '../../store/useConfirmStore';
 
 export default function CustomerLayout() {
     const navigate = useNavigate();

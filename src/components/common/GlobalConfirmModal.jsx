@@ -1,6 +1,6 @@
 import React from 'react';
 import { AlertTriangle, Trash2, Info, CheckCircle2 } from 'lucide-react';
-import { useConfirmStore } from '../store/useConfirmStore';
+import { useConfirmStore } from '../../store/useConfirmStore';
 
 export default function GlobalConfirmModal() {
     const { isOpen, config, closeConfirm } = useConfirmStore();
@@ -40,9 +40,9 @@ export default function GlobalConfirmModal() {
                 <div className="p-6">
                     <div className="flex justify-center mb-4">
                         <div className={`p-4 rounded-full ${type === 'danger' ? 'bg-red-500/10' :
-                                type === 'info' ? 'bg-blue-500/10' :
-                                    type === 'success' ? 'bg-emerald-500/10' :
-                                        'bg-amber-500/10'
+                            type === 'info' ? 'bg-blue-500/10' :
+                                type === 'success' ? 'bg-emerald-500/10' :
+                                    'bg-amber-500/10'
                             }`}>
                             {icons[type]}
                         </div>
