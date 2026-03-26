@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, ShoppingCart, Users, Settings, LogOut, Leaf, Store, Package, LineChart } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Users, Settings, LogOut, Leaf, Store, Package, LineChart, Layers } from 'lucide-react';
 import { useConfirmStore } from '../../store/useConfirmStore';
 import { useAuthStore } from '../../store/useAuthStore';
 import { toast } from 'sonner';
@@ -28,6 +28,7 @@ export default function Layout() {
     const navItems = [
         { name: 'Tổng quan', path: '/dashboard', icon: <LayoutDashboard className="w-5 h-5 mb-1 md:mb-0" /> },
         { name: 'Sản phẩm', path: '/products', icon: <Package className="w-5 h-5 mb-1 md:mb-0" /> },
+        { name: 'Danh mục', path: '/categories', icon: <Layers className="w-5 h-5 mb-1 md:mb-0" /> },
         { name: 'Tạo đơn', path: '/pos', icon: <Store className="w-5 h-5 mb-1 md:mb-0" /> },
         { name: 'Đơn hàng', path: '/orders', icon: <ShoppingCart className="w-5 h-5 mb-1 md:mb-0" /> },
         { name: 'Khách hàng', path: '/customers', icon: <Users className="w-5 h-5 mb-1 md:mb-0" /> },

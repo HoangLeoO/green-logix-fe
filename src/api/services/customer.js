@@ -25,9 +25,21 @@ export const customerApi = {
         return response.data;
     },
 
+    // Cập nhật trạng thái duyệt KH (pending -> approved / rejected)
+    updateStatus: async (id, status) => {
+        const response = await api.patch(`/customers/${id}/status?status=${status}`);
+        return response.data;
+    },
+
     // Xóa khách hàng (Yêu cầu quyền ADMIN)
     delete: async (id) => {
         const response = await api.delete(`/customers/${id}`);
+        return response.data;
+    },
+
+    // Lấy danh sách sản phẩm yêu thích (thường mua) của khách hàng
+    getFavorites: async (id) => {
+        const response = await api.get(`/customers/${id}/favorites`);
         return response.data;
     }
 };

@@ -30,4 +30,16 @@ export const orderApi = {
         const response = await api.get(`/orders/${id}/logs`);
         return response.data;
     },
+
+    // Gửi hóa đơn qua email
+    sendInvoice: async (id) => {
+        const response = await api.post(`/orders/${id}/send-invoice`);
+        return response.data;
+    },
+
+    // Tạo bản sao đơn hàng nhanh
+    copy: async (id) => {
+        const response = await api.post(`/orders/${id}/copy`);
+        return response.data;
+    },
 };

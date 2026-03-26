@@ -9,6 +9,7 @@ import Orders from './features/admin/pages/Orders';
 import OrderPOS from './features/admin/pages/OrderPOS';
 import Customers from './features/admin/pages/Customers';
 import Products from './features/admin/pages/Products';
+import Categories from './features/admin/pages/Categories';
 import Reports from './features/admin/pages/Reports';
 import Settings from './features/admin/pages/Settings';
 
@@ -26,6 +27,10 @@ import { Toaster } from 'sonner';
 import ProtectedRoute from './routes/ProtectedRoute';
 import PublicRoute from './routes/PublicRoute';
 
+// Public Pages
+import RegisterStore from './features/public/pages/RegisterStore';
+import PaymentResult from './features/public/pages/PaymentResult';
+
 function App() {
   return (
     <Router>
@@ -38,11 +43,16 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Route>
 
+        {/* Public Routes - Mọi người đều vào được */}
+        <Route path="/register-store" element={<RegisterStore />} />
+        <Route path="/payment-result" element={<PaymentResult />} />
+
         {/* Protected ADMIN Routes - Cần đăng nhập */}
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/categories" element={<Categories />} />
             <Route path="/pos" element={<OrderPOS />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/customers" element={<Customers />} />
